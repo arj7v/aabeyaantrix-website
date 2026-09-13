@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aabeyaantrix website
 
-## Getting Started
+Marketing site for **Aabeyaantrix Building Contracting L.L.C** — a Dubai MEP and
+building-services contractor. Static Next.js site, hosted on Vercel.
 
-First, run the development server:
+- **Framework:** Next.js 16 (App Router), TypeScript (strict)
+- **Styling:** Tailwind CSS v4
+- **Rendering:** fully static (no database, CMS or auth)
+- **Content:** every string lives in [`content/site.ts`](content/site.ts)
+- **Design rationale:** see [`DESIGN.md`](DESIGN.md)
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Checks (run before deploying)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build      # production build + typecheck
+npm run lint       # ESLint
+npm audit          # clear high/critical
+npx tsc --noEmit   # typecheck only
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contact form
 
-## Learn More
+The form posts to [Web3Forms](https://web3forms.com). It needs a public access
+key in `NEXT_PUBLIC_WEB3FORMS_KEY` — see [`.env.example`](.env.example). Without
+it, the form prompts visitors to call/WhatsApp instead. The key is public by
+design (it only authorises posting to the configured inbox).
 
-To learn more about Next.js, take a look at the following resources:
+## Open items
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Several values are intentionally unset — search the codebase for `TODO:`.
+They are business decisions, not code gaps:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Domain & email** — `SITE_URL` and `company.email` (Blocker 1).
+- **Licensed services** — three brochure activities are present but flagged
+  `licensed: false` and excluded from render until confirmed (Blocker 2).
+- **Client names** — projects are described by scope/sector/location, never by
+  client, until written permission exists (Blocker 3).
+- **TRN, founding year, exact geo, exact brand hex, real logo** — confirm before
+  publishing; do not invent.
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Not yet deployed. When ready: push to GitHub, import to Vercel, verify headers
+on the `.vercel.app` preview. **Do not** wire a custom domain or touch DNS until
+sign-off — live Google Workspace mail depends on the current DNS records.

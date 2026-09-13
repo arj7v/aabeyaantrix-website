@@ -1,69 +1,152 @@
-import Image from "next/image";
+import Link from "next/link";
+import { company, servicesToShow, projects } from "@/content/site";
+import { Container } from "@/components/Container";
+import { CallButton, WhatsAppLink } from "@/components/CtaButtons";
+import { BlueprintSchematic } from "@/components/BlueprintSchematic";
+import { RegistrationPlate } from "@/components/RegistrationPlate";
+import { CtaBand } from "@/components/CtaBand";
+import { LocalBusinessJsonLd } from "@/components/LocalBusinessJsonLd";
 
 export default function Home() {
+  const services = servicesToShow();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      <LocalBusinessJsonLd />
+
+      {/* Hero */}
+      <section className="border-b border-line">
+        <Container className="grid items-center gap-10 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-24">
+          <div className="hero-rise">
+            <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight text-navy sm:text-5xl lg:text-6xl">
+              MEP &amp; building-services contracting in Dubai.
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-steel">
+              {company.legalName} installs and maintains the systems that make
+              buildings work — HVAC, electromechanical plant, plumbing and
+              sanitary, district cooling and technical services. Based in Al
+              Quoz Industrial First.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <CallButton />
+              <WhatsAppLink />
+            </div>
+
+            <p className="mt-6 font-mono text-xs text-steel">
+              Trade licence {company.tradeLicence} · Dubai Chamber{" "}
+              {company.chamberMembership}
+            </p>
+          </div>
+
+          <div className="relative">
+            <div className="overflow-hidden rounded-xl border border-line bg-surface">
+              <BlueprintSchematic className="h-full w-full" />
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* What we do */}
+      <section>
+        <Container className="py-16 sm:py-20">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-navy sm:text-3xl">
+              What we do
+            </h2>
+            <p className="mt-3 text-steel">
+              Six activities, each on our Dubai trade licence. We work for
+              developers, main contractors, consultants and facilities
+              managers across residential, commercial and industrial projects.
+            </p>
+          </div>
+
+          <ul className="mt-10 divide-y divide-line border-y border-line">
+            {services.map((service) => (
+              <li key={service.slug}>
+                <Link
+                  href={`/services#${service.slug}`}
+                  className="group flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:gap-8"
+                >
+                  <h3 className="text-lg font-semibold text-navy transition-colors group-hover:text-blue sm:w-2/5 sm:shrink-0">
+                    {service.name}
+                  </h3>
+                  <p className="text-steel">{service.summary}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-8">
+            <Link
+              href="/services"
+              className="font-semibold text-blue hover:underline"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              All services
+            </Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* Selected work */}
+      <section className="bg-surface">
+        <Container className="py-16 sm:py-20">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-navy sm:text-3xl">
+              Selected work
+            </h2>
+            <p className="mt-3 text-steel">
+              Described by scope, sector and location. We&apos;re glad to talk
+              through relevant references directly.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
+            {projects.map((project) => (
+              <article key={project.slug} className="bg-paper p-6">
+                <p className="font-mono text-[0.7rem] uppercase tracking-wider text-orange">
+                  {project.sector}
+                </p>
+                <h3 className="mt-3 text-lg font-semibold text-navy">
+                  {project.scope}
+                </h3>
+                <p className="mt-2 font-mono text-sm text-steel">
+                  {project.location}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-8">
+            <Link
+              href="/projects"
+              className="font-semibold text-blue hover:underline"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+              More work
+            </Link>
+          </div>
+        </Container>
+      </section>
+
+      {/* Registration / trust */}
+      <section>
+        <Container className="py-16 sm:py-20">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-navy sm:text-3xl">
+              A registered, licensed contractor
+            </h2>
+            <p className="mt-3 text-steel">
+              A limited liability company licensed by the {company.authority}{" "}
+              and a member of the Dubai Chamber of Commerce.
+            </p>
+          </div>
+          <div className="mt-10">
+            <RegistrationPlate />
+          </div>
+        </Container>
+      </section>
+
+      <CtaBand />
+    </>
   );
 }
