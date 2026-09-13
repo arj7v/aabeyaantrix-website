@@ -27,7 +27,7 @@ export default function ProjectsPage() {
               className="grid gap-3 py-7 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8"
             >
               <div>
-                <p className="font-mono text-[0.7rem] uppercase tracking-wider text-orange">
+                <p className="font-mono text-[0.7rem] uppercase tracking-wider text-blue">
                   {project.sector}
                 </p>
                 <h2 className="mt-2 text-lg font-semibold text-navy">

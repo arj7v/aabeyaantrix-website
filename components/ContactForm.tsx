@@ -128,7 +128,7 @@ export function ContactForm() {
         </div>
         <div>
           <label htmlFor="phone" className="text-sm font-medium text-navy">
-            Phone <span className="text-orange">*</span>
+            Phone <span className="text-cta">*</span>
           </label>
           <input
             id="phone"

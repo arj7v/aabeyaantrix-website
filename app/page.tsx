@@ -104,7 +104,7 @@ export default function Home() {
           <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
             {projects.map((project) => (
               <article key={project.slug} className="bg-paper p-6">
-                <p className="font-mono text-[0.7rem] uppercase tracking-wider text-orange">
+                <p className="font-mono text-[0.7rem] uppercase tracking-wider text-blue">
                   {project.sector}
                 </p>
                 <h3 className="mt-3 text-lg font-semibold text-navy">
