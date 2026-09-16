@@ -1,14 +1,19 @@
 import Image from "next/image";
-import { company } from "@/content/site";
 
 /**
- * Brand lockup. The real artwork is a *stacked* logo (gear above the wordmark),
- * which is illegible at header height — so we pair the gear mark with set
- * typography instead of shrinking the whole lockup. `/logo-full.svg` holds the
- * complete artwork for print/OG use.
+ * Brand lockup. The real artwork is a *stacked* logo (gear above the
+ * wordmark above the tagline), which is illegible as a whole at header
+ * height — so we pair the gear mark with the real wordmark graphic on one
+ * line instead of shrinking the whole lockup. `/logo-full.svg` holds the
+ * complete stacked artwork for print/OG use.
  *
- * `tone` picks the text colour for light vs navy surfaces; the mark itself is
- * full-colour on both (its blue reads fine against the navy at this size).
+ * Both pieces are the genuine vector artwork (extracted from the brochure
+ * PDF's vector paths, not redrawn — see DESIGN.md), not set type standing in
+ * for it. `tone` only affects the "Building Contracting" caption colour; the
+ * mark and wordmark are full-colour on both surfaces. Orange-on-navy has no
+ * minimum contrast requirement under WCAG (logos are exempt) and reads fine
+ * regardless; the gear's blue is the one that goes dark-on-dark on navy, so
+ * it alone sits on a paper chip there.
  */
 export function Logo({
   tone = "dark",
@@ -17,12 +22,8 @@ export function Logo({
   tone?: "dark" | "light";
   className?: string;
 }) {
-  const primary = tone === "light" ? "text-white" : "text-navy";
   const secondary = tone === "light" ? "text-on-navy-muted" : "text-steel";
 
-  // The mark's gear is brand blue, which goes dark-on-dark against the navy
-  // footer. On light-tone surfaces it sits on a paper chip so it keeps its
-  // real colours instead of being flattened to a white silhouette.
   const mark = (
     <Image
       src="/logo-mark.svg"
@@ -43,14 +44,17 @@ export function Logo({
       ) : (
         mark
       )}
-      <span className="flex flex-col leading-none">
+      <span className="flex flex-col justify-center gap-1">
+        <Image
+          src="/logo-wordmark.svg"
+          alt="Aabeyaantrix"
+          width={262}
+          height={29}
+          priority
+          className="h-[1.05rem] w-auto"
+        />
         <span
-          className={`text-[1.05rem] font-bold tracking-tight ${primary}`}
-        >
-          {company.shortName}
-        </span>
-        <span
-          className={`mt-1 font-mono text-[0.6rem] uppercase tracking-[0.14em] ${secondary}`}
+          className={`font-mono text-[0.6rem] uppercase tracking-[0.14em] ${secondary}`}
         >
           Building Contracting
         </span>
