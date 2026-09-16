@@ -23,7 +23,10 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ width: "72px", height: "8px", backgroundColor: "#e8501f" }} />
+          {/* ImageResponse can't read CSS custom properties, so this is a
+              literal hex — must stay in sync with --orange in globals.css
+              (sampled from the real logo; see DESIGN.md). */}
+          <div style={{ width: "72px", height: "8px", backgroundColor: "#e55225" }} />
           <div
             style={{
               display: "flex",
