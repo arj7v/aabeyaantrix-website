@@ -32,11 +32,6 @@ export default function Home() {
               <CallButton />
               <WhatsAppLink />
             </div>
-
-            <p className="mt-6 font-mono text-xs text-steel">
-              Trade licence {company.tradeLicence} · Dubai Chamber{" "}
-              {company.chamberMembership}
-            </p>
           </div>
 
           <div className="relative">
