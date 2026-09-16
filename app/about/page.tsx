@@ -7,9 +7,9 @@ import { CtaBand } from "@/components/CtaBand";
 import { MapPinIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Us | Dubai MEP & Building-Services Contractor",
   description:
-    "Aabeyaantrix Building Contracting L.L.C is a Dubai MEP and building-services contractor based in Al Quoz Industrial First — licensed, LLC, and a Dubai Chamber member.",
+    "Aabeyaantrix Building Contracting L.L.C is a licensed Dubai MEP and building-services contractor based in Al Quoz Industrial First, working across the UAE.",
   alternates: { canonical: "/about" },
 };
 
@@ -20,7 +20,8 @@ export default function AboutPage() {
     <>
       <PageHeader
         title="About the company"
-        intro={`${company.legalName} is a Dubai-based MEP and building-services contractor working across residential, commercial and industrial projects.`}
+        intro={`${company.legalName} is a Dubai-based MEP and building-services contractor working across residential, commercial and industrial projects in the UAE.`}
+        crumbs={[{ href: "/about", label: "About" }]}
       />
 
       <Container className="py-16 sm:py-20">

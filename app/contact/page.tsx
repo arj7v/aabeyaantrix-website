@@ -7,7 +7,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { PhoneIcon, WhatsAppIcon, MapPinIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact | MEP Contractor in Al Quoz, Dubai",
   description:
     "Call, WhatsApp or message Aabeyaantrix Building Contracting in Al Quoz Industrial First, Dubai. Phone is the fastest way to reach us.",
   alternates: { canonical: "/contact" },
@@ -21,6 +21,7 @@ export default function ContactPage() {
       <PageHeader
         title="Contact"
         intro="The fastest way to reach us is a phone call or WhatsApp. Prefer to send details first? Use the form and we'll call you back."
+        crumbs={[{ href: "/contact", label: "Contact" }]}
       />
 
       <Container className="py-16 sm:py-20">

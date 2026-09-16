@@ -2,6 +2,7 @@ import Link from "next/link";
 import { company, nav } from "@/content/site";
 import { telHref, mobileTelHref } from "@/lib/contact";
 import { Container } from "@/components/Container";
+import { Logo } from "@/components/Logo";
 
 /** Registration data line — rendered in mono, since these numbers are the
  *  credibility signal in UAE B2B. */
@@ -21,12 +22,16 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 border-t-4 border-orange bg-navy text-on-navy">
-      <Container className="py-14">
+    // No top margin: most pages end on the navy CtaBand, and a gap there would
+    // cut a white stripe between two navy blocks. The orange rule is the join.
+    <footer className="relative overflow-hidden border-t-4 border-orange bg-navy text-on-navy">
+      <div className="blueprint-grid absolute inset-0" aria-hidden="true" />
+      <Container className="relative py-14">
         <div className="grid gap-10 md:grid-cols-3">
           {/* Identity + address */}
           <div className="md:col-span-1">
-            <p className="text-lg font-bold text-white">
+            <Logo tone="light" />
+            <p className="mt-5 text-sm font-semibold text-white">
               {company.legalName}
             </p>
             <p className="mt-1 text-sm text-on-navy-muted">
@@ -50,12 +55,12 @@ export function Footer() {
             </h2>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
-                <a href={telHref} className="hover:text-white">
+                <a href={telHref} className="inline-block transition-colors duration-150 hover:text-white">
                   Landline {company.phoneDisplay}
                 </a>
               </li>
               <li>
-                <a href={mobileTelHref} className="hover:text-white">
+                <a href={mobileTelHref} className="inline-block transition-colors duration-150 hover:text-white">
                   Mobile {company.mobileDisplay}
                 </a>
               </li>
@@ -63,7 +68,7 @@ export function Footer() {
                 <li>
                   <a
                     href={`mailto:${company.email}`}
-                    className="hover:text-white"
+                    className="inline-block transition-colors duration-150 hover:text-white"
                   >
                     {company.email}
                   </a>
@@ -77,7 +82,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-sm">
               {nav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="hover:text-white">
+                  <Link href={item.href} className="inline-block transition-colors duration-150 hover:text-white">
                     {item.label}
                   </Link>
                 </li>

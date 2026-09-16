@@ -52,6 +52,20 @@
   --font-mono: var(--font-plex-mono);
 }
 
+/* Motion + elevation system. One easing curve everywhere, three durations —
+   interaction feedback should feel like one hand made it. */
+:root {
+  --ease: cubic-bezier(0.2, 0.65, 0.3, 1);
+  --t-fast: 140ms;
+  --t-base: 240ms;
+  --t-slow: 420ms;
+
+  /* Shadows are tinted navy, never neutral grey — keeps depth on-brand. */
+  --shadow-sm: 0 1px 2px rgb(11 34 57 / 0.06);
+  --shadow-md: 0 4px 16px -4px rgb(11 34 57 / 0.12);
+  --shadow-lg: 0 18px 40px -12px rgb(11 34 57 / 0.22);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -83,7 +97,140 @@
   }
 }
 
-/* The single orchestrated motion moment: hero entrance. */
+/* ---------------------------------------------------------------------------
+   Interaction system
+   Motion here is action-response: it answers a hover, focus or press. There is
+   no ambient scroll animation — the page never moves on its own.
+   Every effect below is disabled under prefers-reduced-motion (see the block
+   at the foot of this file).
+   --------------------------------------------------------------------------- */
+
+/* Blueprint ground: the drawing-grid texture used behind dark sections.
+   Grounded in the subject (setting-out drawings), not a decorative gradient. */
+.blueprint-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.blueprint-grid-light {
+  background-image:
+    linear-gradient(to right, rgb(11 34 57 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(11 34 57 / 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Link underline that draws in from the left rather than snapping on. */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 2px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-base) var(--ease);
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after,
+.link-underline[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+/* Raised surface: lifts and sharpens on hover. Used for anything clickable
+   that reads as a panel. */
+.lift {
+  transition:
+    transform var(--t-base) var(--ease),
+    box-shadow var(--t-base) var(--ease),
+    border-color var(--t-base) var(--ease),
+    background-color var(--t-base) var(--ease);
+}
+.lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Buttons: press-down on active so a tap feels physical. */
+.btn {
+  transition:
+    background-color var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease),
+    box-shadow var(--t-base) var(--ease),
+    transform var(--t-fast) var(--ease);
+}
+.btn:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Row-style list items (the services index). An accent bar grows down the
+   left edge and the row warms slightly. */
+.row-item {
+  position: relative;
+  transition: background-color var(--t-base) var(--ease);
+}
+.row-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--orange);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform var(--t-base) var(--ease);
+}
+.row-item:hover::before,
+.row-item:focus-within::before {
+  transform: scaleY(1);
+}
+.row-item:hover,
+.row-item:focus-within {
+  background: var(--surface);
+}
+
+/* Small horizontal nudge for an icon/arrow inside a hovered parent. */
+.nudge {
+  transition: transform var(--t-base) var(--ease);
+}
+.group:hover .nudge {
+  transform: translateX(4px);
+}
+
+/* Schematic pipe runs draw themselves in once, as if being set out on paper.
+   One-shot (`both`, no iteration count) — never a loop. */
+@keyframes drawIn {
+  from {
+    stroke-dashoffset: var(--dash);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.schematic .draw {
+  --dash: 900;
+  stroke-dasharray: var(--dash);
+  animation: drawIn 1.6s var(--ease) both;
+}
+.schematic .draw-1 { animation-delay: 0.25s; }
+.schematic .draw-2 { animation-delay: 0.4s; }
+.schematic .draw-3 { --dash: 300; animation-delay: 0.7s; }
+
+/* The single orchestrated motion moment: hero entrance, staggered. */
 @keyframes riseIn {
   from {
     opacity: 0;
@@ -96,11 +243,42 @@
 }
 
 .hero-rise {
-  animation: riseIn 0.6s cubic-bezier(0.2, 0.65, 0.3, 1) both;
+  animation: riseIn 0.6s var(--ease) both;
 }
+.hero-rise-1 { animation: riseIn 0.6s var(--ease) 0.05s both; }
+.hero-rise-2 { animation: riseIn 0.6s var(--ease) 0.14s both; }
+.hero-rise-3 { animation: riseIn 0.6s var(--ease) 0.23s both; }
+.hero-rise-4 { animation: riseIn 0.6s var(--ease) 0.32s both; }
 
+/* Reduced motion: keep every state change, drop every movement. Colour and
+   shadow feedback still fires, so nothing becomes unclickable or ambiguous —
+   only translation, scaling and the entrance animation are removed. */
 @media (prefers-reduced-motion: reduce) {
-  .hero-rise {
+  .hero-rise,
+  .hero-rise-1,
+  .hero-rise-2,
+  .hero-rise-3,
+  .hero-rise-4 {
     animation: none;
+  }
+
+  .schematic .draw {
+    animation: none;
+    stroke-dasharray: none;
+  }
+
+  .lift:hover,
+  .btn:hover,
+  .btn:active {
+    transform: none;
+  }
+
+  .group:hover .nudge {
+    transform: none;
+  }
+
+  .link-underline::after,
+  .row-item::before {
+    transition: none;
   }
 }

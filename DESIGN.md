@@ -41,6 +41,43 @@ sampled too but isn't used site-wide — it's a one-off detail inside the
 icon mark itself, not a brand colour the brief calls out for structural or
 CTA use, and adding a third accent colour would fight the two-colour system.
 
+## Logo
+
+The real artwork was recovered as **vector** from the brochure PDF (page 12
+draws the logo as paths, not a raster embed), cropped to its bounding box and
+rebuilt as a minimal SVG — no tracing or redrawing. Two assets:
+
+| File | Use |
+|---|---|
+| `public/logo-mark.svg` (7 KB) | Gear emblem. Header, footer, `app/icon.svg` favicon. |
+| `public/logo-full.svg` (68 KB) | Complete stacked lockup. Print, OG, downloads. |
+
+The full lockup is *stacked* (gear over wordmark over tagline), so it is
+illegible at header height. `components/Logo.tsx` therefore pairs the mark with
+set typography instead of shrinking the lockup. On navy the mark sits on a
+paper chip — its gear is brand blue and would otherwise go dark-on-dark.
+
+## Motion & interaction
+
+Motion is **action-response only**: it answers a hover, focus or press. There is
+no ambient scroll animation — the page never moves on its own, which is the
+generated-design tell the brief calls out. Two exceptions, both one-shot on
+load: the staggered hero entrance, and the schematic's pipe runs drawing
+themselves in.
+
+One easing curve (`--ease`) and three durations (`--t-fast/base/slow`) across
+everything, so the whole surface feels like one hand made it. Shadows are
+tinted navy, never neutral grey.
+
+Utilities in `globals.css`: `.link-underline` (underline grows from the left),
+`.lift` (panel raises + shadow), `.btn` (hover lift, press-down on `:active`),
+`.row-item` (accent bar grows down the left edge), `.nudge` (icon shifts inside
+a hovered parent), `.blueprint-grid` / `-light` (drawing-grid ground).
+
+Every one of these is neutralised under `prefers-reduced-motion`, which keeps
+colour and shadow feedback but drops all translation and scaling — nothing
+becomes ambiguous or unclickable.
+
 ## Typography — one superfamily, two roles
 
 - **IBM Plex Sans** (`--font-sans`) — headings, body, UI. Engineering heritage,

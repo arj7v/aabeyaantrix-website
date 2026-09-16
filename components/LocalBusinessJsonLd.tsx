@@ -1,11 +1,13 @@
-import { company, SITE_URL } from "@/content/site";
+import { company, SITE_URL, servicesToShow } from "@/content/site";
+import { getNonce } from "@/lib/nonce";
 
 /**
  * LocalBusiness structured data — the highest-leverage SEO item for a Dubai
  * contractor. Emitted as a JSON-LD script. We build the object and serialise
  * with JSON.stringify (no raw HTML), so there is no injection surface.
  */
-export function LocalBusinessJsonLd() {
+export async function LocalBusinessJsonLd() {
+  const nonce = await getNonce();
   const { address, geo } = company;
 
   const data: Record<string, unknown> = {
@@ -29,7 +31,24 @@ export function LocalBusinessJsonLd() {
       latitude: geo.lat,
       longitude: geo.lng,
     },
-    areaServed: { "@type": "Country", name: "United Arab Emirates" },
+    areaServed: company.areaServed.map((name) => ({
+      "@type": "Place",
+      name,
+    })),
+    // The licensed activities, so a local pack can match the business to a
+    // specific trade query rather than only to the company name.
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Licensed MEP & building services",
+      itemListElement: servicesToShow().map((s) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: s.name,
+          url: `${SITE_URL}/services/${s.slug}`,
+        },
+      })),
+    },
     identifier: [
       { "@type": "PropertyValue", name: "Trade Licence", value: company.tradeLicence },
       { "@type": "PropertyValue", name: "Commercial Register", value: company.commercialRegister },
@@ -50,6 +69,7 @@ export function LocalBusinessJsonLd() {
   return (
     <script
       type="application/ld+json"
+      nonce={nonce}
       dangerouslySetInnerHTML={{ __html: json }}
     />
   );

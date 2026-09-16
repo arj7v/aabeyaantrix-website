@@ -1,26 +1,16 @@
 import type { NextConfig } from "next";
 
-// Contact form submissions post to Web3Forms. Declared once so the host
-// appears in exactly one place across the CSP directives below.
-const FORM_ENDPOINT = "https://api.web3forms.com";
-
-// Content-Security-Policy, assembled from single-purpose directives.
-// Start restrictive; loosen only where a build genuinely breaks.
-// 'unsafe-inline' appears ONLY on style-src (Next.js inlines critical CSS).
-// It must never be added to script-src.
-const csp = [
-  "default-src 'self'",
-  "script-src 'self'",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https:",
-  "font-src 'self'",
-  `connect-src 'self' ${FORM_ENDPOINT}`,
-  `form-action 'self' ${FORM_ENDPOINT}`,
-  "frame-ancestors 'none'",
-  "base-uri 'self'",
-  "object-src 'none'",
-].join("; ");
-
+/**
+ * Security headers.
+ *
+ * The Content-Security-Policy is NOT set here — it is built per-request in
+ * `proxy.ts`, because `script-src` carries a fresh nonce on every response.
+ * A static `script-src 'self'` header blocks Next.js's own inline hydration
+ * bootstrap, which silently kills all client interactivity (the mobile menu
+ * and the contact form) while leaving the server-rendered HTML looking fine.
+ *
+ * Everything below is request-independent, so it stays in the static config.
+ */
 const securityHeaders = [
   {
     key: "Strict-Transport-Security",
@@ -33,7 +23,6 @@ const securityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=()",
   },
-  { key: "Content-Security-Policy", value: csp },
 ];
 
 const nextConfig: NextConfig = {

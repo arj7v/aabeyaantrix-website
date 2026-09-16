@@ -5,9 +5,9 @@ import { PageHeader } from "@/components/PageHeader";
 import { CtaBand } from "@/components/CtaBand";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "MEP Projects in Dubai & the UAE | Selected Work",
   description:
-    "Selected MEP and building-services work in the UAE, described by scope, sector and location.",
+    "Selected MEP and building-services work across Dubai, Sharjah and the UAE — described by scope, sector and location.",
   alternates: { canonical: "/projects" },
 };
 
@@ -15,26 +15,25 @@ export default function ProjectsPage() {
   return (
     <>
       <PageHeader
-        title="Selected work"
+        title="Selected work across the UAE"
         intro="We describe our work by scope, sector and location rather than by client name. For relevant references on a specific project type, the quickest route is a direct conversation."
+        crumbs={[{ href: "/projects", label: "Projects" }]}
       />
 
       <Container className="py-16 sm:py-20">
-        <ul className="divide-y divide-line border-y border-line">
+        <ul className="grid gap-5 sm:grid-cols-2">
           {projects.map((project) => (
             <li
               key={project.slug}
-              className="grid gap-3 py-7 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8"
+              className="lift rounded-xl border border-line bg-paper p-7 hover:border-blue/30"
             >
-              <div>
-                <p className="font-mono text-[0.7rem] uppercase tracking-wider text-blue">
-                  {project.sector}
-                </p>
-                <h2 className="mt-2 text-lg font-semibold text-navy">
-                  {project.scope}
-                </h2>
-              </div>
-              <p className="font-mono text-sm text-steel">
+              <p className="font-mono text-[0.68rem] uppercase tracking-wider text-blue">
+                {project.sector}
+              </p>
+              <h2 className="mt-3 text-xl font-semibold leading-snug text-navy">
+                {project.scope}
+              </h2>
+              <p className="mt-4 border-t border-line pt-4 font-mono text-sm text-steel">
                 {project.location}
                 {project.year ? ` · ${project.year}` : ""}
               </p>

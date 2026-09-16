@@ -23,23 +23,44 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${company.shortName} — MEP & building-services contracting in Dubai`,
-    template: `%s — ${company.shortName}`,
+    default: `MEP Contractor in Dubai | ${company.shortName} Building Contracting L.L.C`,
+    template: `%s | ${company.shortName}`,
   },
   description:
-    "Dubai MEP and building-services contractor: HVAC, electromechanical, plumbing and sanitary, district cooling and technical services. Licensed, Dubai Chamber member, based in Al Quoz.",
+    "Licensed MEP and building-services contractor in Dubai: HVAC, electromechanical, plumbing and sanitary, district cooling and technical services. Dubai Chamber member, based in Al Quoz Industrial First.",
   applicationName: company.legalName,
   authors: [{ name: company.legalName }],
+  alternates: { canonical: "/" },
+  // Broad intent terms only — these mirror the licensed activities and the
+  // service pages, so nothing here claims work the licence doesn't cover.
+  keywords: [
+    "MEP contractor Dubai",
+    "HVAC maintenance Dubai",
+    "electromechanical contractor UAE",
+    "plumbing and sanitary contractor Dubai",
+    "district cooling services Dubai",
+    "building services contractor Al Quoz",
+  ],
   openGraph: {
     type: "website",
     locale: "en_AE",
     url: SITE_URL,
     siteName: company.legalName,
-    title: `${company.shortName} — MEP & building-services contracting in Dubai`,
+    title: `MEP Contractor in Dubai | ${company.legalName}`,
     description:
       "HVAC, electromechanical, plumbing, district cooling and technical services in Dubai. Licensed and Dubai Chamber registered.",
   },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: `MEP Contractor in Dubai | ${company.shortName}`,
+    description:
+      "Licensed MEP and building-services contracting in Dubai and across the UAE.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
