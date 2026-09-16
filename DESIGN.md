@@ -4,8 +4,14 @@ Brand colours are given (orange + blue from the logo), not chosen. This plan
 decides everything around them. All contrast ratios below were computed against
 WCAG 2.1 (see the values in parentheses); AA is the floor.
 
-> **TODO (design):** exact brand hex must be sampled from the real logo file.
-> Values here are the brochure approximations from the brief.
+> **Resolved (2026-09-16):** exact brand hex sampled from the real logo
+> artwork in `Aabeyaantrix-Brochure.pdf` (pages 1 & 12 — the wordmark, the
+> gear ring/subtitle, and the solid footer band). Method: rendered each page
+> to a 2382×3368 PNG at 4× zoom with PyMuPDF, then took the pixel-mode of
+> flat regions in each colour (400k–900k+ pixels per sample). Two independent
+> instances of both colours matched exactly, so this supersedes the brief's
+> brochure-eyeballed approximations — orange was close (`#E8501F` → `#E55225`),
+> blue was not (`#1160B8` → `#0054A6`, notably deeper and fully saturated).
 
 ## Palette (6 named + functional tokens)
 
@@ -14,19 +20,26 @@ WCAG 2.1 (see the values in parentheses); AA is the floor.
 | `--paper` | `#FFFFFF` | Page background | — |
 | `--surface` | `#F5F6F7` | Alternating section background (cool grey, **not** warm cream) | — |
 | `--ink` | `#14181C` | Primary text & default headings | 17.8:1 on paper |
-| `--blue` | `#1160B8` | Brand structural: links, section markers, heading accents | 6.2:1 on paper |
+| `--blue` | `#0054A6` | Brand structural: links, section markers, heading accents | 7.5:1 on paper |
 | `--navy` | `#0B2239` | Deep surfaces: footer, CTA band, strong headings | 16.1:1 (white on it) |
-| `--orange` | `#E8501F` | Brand accent: hairline rules, icons, large display numerals | large-text / non-text only |
-| `--cta` | `#C6410F` | Button fill under white label (tuned orange for AA) | 5.0:1 (white on it) |
+| `--orange` | `#E55225` | Brand accent: hairline rules, icons, large display numerals | large-text / non-text only |
+| `--cta` | `#C74118` | Button fill under white label (tuned orange for AA) | 5.0:1 (white on it) |
 | `--steel` | `#566069` | Secondary / supporting text | 5.9:1 on paper |
 | `--line` | `#D9DEE3` | Hairline rules & borders | — |
 
 Footer/CTA text on navy: `#C4CDD6` body (10:1), `#A9B2BC` muted (7.5:1).
 
-**Why two oranges:** white on brand `#E8501F` is 3.75:1 — fine for large display,
-below AA for button labels. Button fills therefore use `--cta #C6410F` (5.0:1),
+**Why two oranges:** white on brand `#E55225` is 3.77:1 — fine for large display,
+below AA for button labels. Button fills therefore use `--cta #C74118` (5.0:1),
 visually the same orange family. `--orange` is reserved for rules, icons and
 large numerals where it passes.
+
+`--navy` is a derived dark neutral, not one of the two logo colours — the logo
+has no navy. Its hue (210°) already sits within 2° of the real sampled blue,
+so it needed no adjustment. The logo's gold "ABC" lettering (`#B4942F`) was
+sampled too but isn't used site-wide — it's a one-off detail inside the
+icon mark itself, not a brand colour the brief calls out for structural or
+CTA use, and adding a third accent colour would fight the two-colour system.
 
 ## Typography — one superfamily, two roles
 

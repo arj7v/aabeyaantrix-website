@@ -5,6 +5,18 @@
   Brand colours are the logo's orange + blue. Blue does structural work;
   orange is reserved for calls to action. Palette is intentionally cool
   (no warm cream) to read as engineered building services, not generic.
+
+  --blue and --orange are pixel-sampled from the real logo artwork (mode of
+  900k+ pixels across two independent renders — the wordmark, the gear ring,
+  and the solid footer band in Aabeyaantrix-Brochure.pdf, pages 1 & 12),
+  not eyeballed — see DESIGN.md for the exact method. They supersede the
+  brief's approximations (orange #E8501F, blue #1160B8); the real blue is
+  measurably deeper and more saturated (#0054A6).
+  --cta / --cta-hover are the brand orange darkened just enough to clear
+  WCAG AA (4.5:1) for a white label on the fill — the raw brand orange only
+  reaches ~3.8:1 and can't carry text. --navy is a derived dark neutral for
+  large surfaces (footer, hero), not one of the two logo colours itself;
+  its hue already matches the real blue closely, so it is unchanged.
 */
 
 :root {
@@ -13,11 +25,11 @@
   --ink: #14181c;
   --steel: #566069;
   --line: #d9dee3;
-  --blue: #1160b8;
+  --blue: #0054a6;
   --navy: #0b2239;
-  --orange: #e8501f; /* brand accent: rules, icons, large display only */
-  --cta: #c6410f; /* button fill under white label — AA-safe */
-  --cta-hover: #a83809;
+  --orange: #e55225; /* brand accent: rules, icons, large display only */
+  --cta: #c74118; /* button fill under white label — AA-safe, 5.0:1 */
+  --cta-hover: #b03915;
   --on-navy: #c4cdd6;
   --on-navy-muted: #a9b2bc;
 }
