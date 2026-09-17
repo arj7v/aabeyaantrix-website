@@ -36,7 +36,7 @@ export default function ContactPage() {
                 <PhoneIcon className="h-6 w-6 shrink-0 text-blue" />
                 <span>
                   <span className="block text-sm text-steel">
-                    Call the landline
+                    Call us
                   </span>
                   <span className="block text-lg font-semibold text-navy">
                     {company.phoneDisplay}
@@ -56,7 +56,7 @@ export default function ContactPage() {
                     Message on WhatsApp
                   </span>
                   <span className="block text-lg font-semibold text-navy">
-                    {company.mobileDisplay}
+                    {company.phoneDisplay}
                   </span>
                 </span>
               </a>
@@ -67,7 +67,7 @@ export default function ContactPage() {
               >
                 <PhoneIcon className="h-6 w-6 shrink-0 text-blue" />
                 <span>
-                  <span className="block text-sm text-steel">Call mobile</span>
+                  <span className="block text-sm text-steel">Alternative number</span>
                   <span className="block text-lg font-semibold text-navy">
                     {company.mobileDisplay}
                   </span>

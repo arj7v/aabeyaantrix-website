@@ -1,9 +1,9 @@
 import { company } from "@/content/site";
 
-/** `tel:` href for the landline. */
+/** `tel:` href for the priority number. */
 export const telHref = `tel:${company.phone}`;
 
-/** `tel:` href for the mobile. */
+/** `tel:` href for the alternative number. */
 export const mobileTelHref = `tel:${company.mobile}`;
 
 /**

@@ -56,12 +56,12 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-sm">
               <li>
                 <a href={telHref} className="inline-block transition-colors duration-150 hover:text-white">
-                  Landline {company.phoneDisplay}
+                  Call {company.phoneDisplay}
                 </a>
               </li>
               <li>
                 <a href={mobileTelHref} className="inline-block transition-colors duration-150 hover:text-white">
-                  Mobile {company.mobileDisplay}
+                  Alternative {company.mobileDisplay}
                 </a>
               </li>
               {company.email && (

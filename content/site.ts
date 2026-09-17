@@ -32,12 +32,17 @@ export const company = {
     makani: "2207982493",
   },
 
-  phone: "+97142992591", // landline, tel: format
-  phoneDisplay: "+971 4 299 2591",
-  mobile: "+971508782591",
-  mobileDisplay: "+971 50 878 2591",
-  whatsapp: "971508782591", // TODO: confirm the mobile line is the monitored WhatsApp number
-  email: null as string | null, // TODO: blocked on the domain decision (Blocker 1). Publish only a monitored address.
+  // Updated 2026-09-17, given directly by the family (not from the licence/
+  // brochure): the trade-licence landline (+971 4 299 2591) and the licence
+  // mobile (+971 50 878 2591) are both retired from the site. `phone` is now
+  // the priority contact — the owner's personal number — used for calls
+  // *and* WhatsApp; `mobile` is a second, alternative line.
+  phone: "+971506786270",
+  phoneDisplay: "+971 50 678 6270",
+  mobile: "+971585943224",
+  mobileDisplay: "+971 58 594 3224",
+  whatsapp: "971506786270", // same as `phone` — the priority number
+  email: null as string | null, // TODO: no monitored inbox on aabeyaantrixuae.com confirmed yet. Publish only a monitored address.
 
   // Geo for LocalBusiness JSON-LD. Approximate centroid of Al Quoz Industrial
   // First; refine from the Makani number if a precise pin is needed.
