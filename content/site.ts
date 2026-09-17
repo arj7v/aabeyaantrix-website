@@ -52,7 +52,12 @@ export const company = {
 } as const;
 
 /** The public site URL. `.vercel.app` until sign-off; do NOT wire a custom domain yet. */
-export const SITE_URL = "https://aabeyaantrix-website.vercel.app"; // TODO: set to the final domain once Blocker 1 is resolved
+// Blocker 1 resolved 2026-09-17: aabeyaantrix.com's registrant is unreachable
+// (the original site's contractor is no longer contactable), so the company
+// is standing on the domain it actually controls — aabeyaantrixuae.com,
+// where Google Workspace mail already lives. DNS confirmed live and mail
+// records (MX/SPF/DKIM) verified untouched.
+export const SITE_URL = "https://www.aabeyaantrixuae.com";
 
 export type Service = {
   slug: string;
