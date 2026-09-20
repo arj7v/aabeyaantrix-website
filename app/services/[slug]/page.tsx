@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -13,6 +12,7 @@ import {
 import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
 import { CtaBand } from "@/components/CtaBand";
+import { ServiceMedia } from "@/components/ServiceMedia";
 import { ArrowIcon } from "@/components/icons";
 import { getNonce } from "@/lib/nonce";
 
@@ -123,12 +123,10 @@ export default async function ServiceDetailPage({
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
           <div>
             <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
-              <Image
-                src={service.image}
-                alt=""
-                fill
+              <ServiceMedia
+                service={service}
                 sizes="(min-width: 1024px) 60vw, 100vw"
-                className="object-cover"
+                priority
               />
             </div>
 
