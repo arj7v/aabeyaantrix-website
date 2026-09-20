@@ -4,7 +4,7 @@ import { telHref, mobileTelHref, whatsappHref } from "@/lib/contact";
 import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
 import { ContactForm } from "@/components/ContactForm";
-import { PhoneIcon, WhatsAppIcon, MapPinIcon } from "@/components/icons";
+import { PhoneIcon, WhatsAppIcon, MapPinIcon, MailIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Contact | Book a Site Visit in Dubai",
@@ -73,6 +73,21 @@ export default function ContactPage() {
                   </span>
                 </span>
               </a>
+
+              {company.email && (
+                <a
+                  href={`mailto:${company.email}`}
+                  className="flex items-center gap-4 rounded-xl border border-line p-5 transition-colors hover:border-navy/30 hover:bg-surface"
+                >
+                  <MailIcon className="h-6 w-6 shrink-0 text-blue" />
+                  <span>
+                    <span className="block text-sm text-steel">Email</span>
+                    <span className="block text-lg font-semibold text-navy">
+                      {company.email}
+                    </span>
+                  </span>
+                </a>
+              )}
             </div>
 
             <div className="mt-8 flex items-start gap-4 rounded-xl border border-line bg-surface p-5">

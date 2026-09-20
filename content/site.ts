@@ -63,7 +63,10 @@ export const company = {
   mobile: "+971585943224",
   mobileDisplay: "+971 58 594 3224",
   whatsapp: "971506786270", // same as `phone` — the priority number
-  email: null as string | null, // TODO: no monitored inbox on aabeyaantrixuae.com confirmed yet. Publish only a monitored address.
+  // Confirmed 2026-09-21: real Workspace inbox on aabeyaantrixuae.com,
+  // actively monitored (also the destination for the Web3Forms contact
+  // form submissions).
+  email: "info@aabeyaantrixuae.com" as string | null,
 
   // Geo for LocalBusiness JSON-LD. Approximate centroid of Al Quoz Industrial
   // First; refine from the Makani number if a precise pin is needed.
