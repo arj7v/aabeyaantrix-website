@@ -7,9 +7,9 @@ import { CtaBand } from "@/components/CtaBand";
 import { MapPinIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "About Us | Dubai MEP & Building-Services Contractor",
+  title: "About Us | Interior Fit-Out & Renovation Contractor in Dubai",
   description:
-    "Aabeyaantrix Building Contracting L.L.C is a licensed Dubai MEP and building-services contractor based in Al Quoz Industrial First, working across the UAE.",
+    "Aabeyaantrix Building Contracting L.L.C is a Dubai-based interior fit-out, renovation and building contracting company delivering complete solutions across the UAE.",
   alternates: { canonical: "/about" },
 };
 
@@ -19,8 +19,8 @@ export default function AboutPage() {
   return (
     <>
       <PageHeader
-        title="About the company"
-        intro={`${company.legalName} is a Dubai-based MEP and building-services contractor working across residential, commercial and industrial projects in the UAE.`}
+        title="Design & construction, without the handoff gap"
+        intro={`${company.legalName} is a Dubai-based interior fit-out, renovation and building contracting company delivering complete solutions for residential, commercial, hospitality and retail spaces.`}
         crumbs={[{ href: "/about", label: "About" }]}
       />
 
@@ -28,25 +28,26 @@ export default function AboutPage() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
           <div className="max-w-2xl space-y-5 text-lg leading-relaxed text-steel">
             <p>
-              We install and maintain the mechanical, electrical and plumbing
-              systems buildings depend on — air-conditioning and ventilation,
-              electromechanical plant, plumbing and sanitary works, district
-              cooling and the technical services that keep them running.
+              From initial survey and design coordination to demolition,
+              civil works, MEP, fit-out and final handover, we manage the
+              process through one accountable team — helping clients maintain
+              better control over quality, timelines and communication.
             </p>
             <p>
-              Our clients are property developers, main contractors,
-              consultants and facilities managers. The work ranges from
-              installation on new developments to maintenance and repair on
-              buildings already in use. We take on scope that sits squarely
-              within our licensed activities, and we&apos;re direct about what
-              does and doesn&apos;t.
+              Interior fit-out and renovation are what we lead with, backed
+              by civil, electrical, plumbing, HVAC and technical capabilities
+              in-house. Six of those technical activities — air-conditioning
+              and ventilation, electromechanical, plumbing and sanitary, pipe
+              repair, district cooling and technical services — sit on our
+              Dubai trade licence; the rest we take on as coordinated scope
+              within a turnkey project.
             </p>
             <p>
               As a limited liability company licensed by the{" "}
               {company.authority} and a member of the Dubai Chamber of
               Commerce, we operate as a registered, accountable contractor —
-              which, in this market, is the starting point for being trusted on
-              site.
+              which, in this market, is the starting point for being trusted
+              on site.
             </p>
           </div>
 
@@ -87,7 +88,25 @@ export default function AboutPage() {
           </aside>
         </div>
 
-        <div className="mt-16">
+        {/* Mission & vision */}
+        <div className="mt-16 grid gap-10 border-t border-line pt-16 sm:grid-cols-2">
+          <div>
+            <div className="h-0.5 w-8 bg-orange" />
+            <h2 className="mt-4 text-xl font-semibold text-navy">
+              Our mission
+            </h2>
+            <p className="mt-3 leading-relaxed text-steel">{company.mission}</p>
+          </div>
+          <div>
+            <div className="h-0.5 w-8 bg-orange" />
+            <h2 className="mt-4 text-xl font-semibold text-navy">
+              Our vision
+            </h2>
+            <p className="mt-3 leading-relaxed text-steel">{company.vision}</p>
+          </div>
+        </div>
+
+        <div className="mt-16 border-t border-line pt-16">
           <h2 className="text-xl font-semibold text-navy">
             Registration &amp; credentials
           </h2>

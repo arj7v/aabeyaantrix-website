@@ -7,9 +7,9 @@ import { ContactForm } from "@/components/ContactForm";
 import { PhoneIcon, WhatsAppIcon, MapPinIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Contact | MEP Contractor in Al Quoz, Dubai",
+  title: "Contact | Book a Site Visit in Dubai",
   description:
-    "Call, WhatsApp or message Aabeyaantrix Building Contracting in Al Quoz Industrial First, Dubai. Phone is the fastest way to reach us.",
+    "Tell Aabeyaantrix Building Contracting what you're planning — a villa renovation, apartment makeover, office fit-out or turnkey project. Call, WhatsApp or request a proposal.",
   alternates: { canonical: "/contact" },
 };
 
@@ -19,8 +19,8 @@ export default function ContactPage() {
   return (
     <>
       <PageHeader
-        title="Contact"
-        intro="The fastest way to reach us is a phone call or WhatsApp. Prefer to send details first? Use the form and we'll call you back."
+        title="Let's build your next space"
+        intro="Tell us what you're planning — a villa renovation, apartment makeover, office fit-out, retail project or complete turnkey renovation. We'll arrange a site visit, review the scope and prepare a clear proposal."
         crumbs={[{ href: "/contact", label: "Contact" }]}
       />
 
@@ -96,10 +96,10 @@ export default function ContactPage() {
           {/* Enquiry form */}
           <div>
             <h2 className="text-xl font-semibold text-navy">
-              Send an enquiry
+              Request a proposal
             </h2>
             <p className="mt-2 text-steel">
-              A few lines on the scope, sector and location is plenty to start.
+              A few lines on the location, size and scope is plenty to start.
             </p>
             <div className="mt-6">
               <ContactForm />

@@ -105,7 +105,6 @@ export function Footer() {
                 label="Commercial reg."
                 value={company.commercialRegister}
               />
-              <DataRow label="Makani" value={address.makani} />
               {company.trn && <DataRow label="TRN" value={company.trn} />}
             </dl>
           </div>

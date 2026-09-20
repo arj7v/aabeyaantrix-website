@@ -7,13 +7,11 @@ export function RegistrationPlate() {
     { label: "Trade licence", value: company.tradeLicence },
     { label: "Commercial register", value: company.commercialRegister },
     { label: "Dubai Chamber", value: company.chamberMembership },
-    { label: "Paid-up capital", value: company.paidUpCapital },
-    { label: "Makani", value: company.address.makani },
   ];
   if (company.trn) items.push({ label: "TRN", value: company.trn });
 
   return (
-    <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3 lg:grid-cols-5">
+    <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
       {items.map((item) => (
         <div key={item.label} className="bg-paper p-5">
           <dt className="font-mono text-[0.7rem] uppercase tracking-wider text-steel">

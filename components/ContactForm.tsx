@@ -58,6 +58,7 @@ export function ContactForm() {
           name: (data.get("name") as string)?.slice(0, LIMITS.name),
           phone: phone.slice(0, LIMITS.phone),
           email: (data.get("email") as string)?.slice(0, LIMITS.email),
+          project_type: data.get("projectType") as string,
           message: (data.get("message") as string)?.slice(0, LIMITS.message),
         }),
       });
@@ -142,30 +143,51 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div>
-        <label htmlFor="email" className="text-sm font-medium text-navy">
-          Email
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          maxLength={LIMITS.email}
-          className={fieldBase}
-        />
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="email" className="text-sm font-medium text-navy">
+            Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            maxLength={LIMITS.email}
+            className={fieldBase}
+          />
+        </div>
+        <div>
+          <label htmlFor="projectType" className="text-sm font-medium text-navy">
+            Project type
+          </label>
+          <select
+            id="projectType"
+            name="projectType"
+            defaultValue="Villa Renovation"
+            className={fieldBase}
+          >
+            <option>Villa Renovation</option>
+            <option>Interior Fit-Out</option>
+            <option>Office / Commercial Fit-Out</option>
+            <option>Hotel / Hospitality</option>
+            <option>Civil / Structural Works</option>
+            <option>MEP & Technical Services</option>
+            <option>Other</option>
+          </select>
+        </div>
       </div>
 
       <div>
         <label htmlFor="message" className="text-sm font-medium text-navy">
-          What do you need?
+          Tell us about your project
         </label>
         <textarea
           id="message"
           name="message"
           rows={5}
           maxLength={LIMITS.message}
-          placeholder="Scope, sector and location help us respond quickly."
+          placeholder="Location, approximate size and the work required help us respond quickly."
           className={`${fieldBase} resize-y`}
         />
       </div>
@@ -181,7 +203,7 @@ export function ContactForm() {
         disabled={status === "submitting"}
         className="inline-flex items-center justify-center rounded-md bg-cta px-6 py-3 font-semibold text-white transition-colors hover:bg-cta-hover disabled:opacity-60"
       >
-        {status === "submitting" ? "Sending…" : "Send enquiry"}
+        {status === "submitting" ? "Sending…" : "Send request"}
       </button>
 
       <p className="text-xs text-steel">

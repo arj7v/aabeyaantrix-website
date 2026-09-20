@@ -1,4 +1,4 @@
-import { company, SITE_URL, servicesToShow } from "@/content/site";
+import { company, SITE_URL, featuredServices } from "@/content/site";
 import { getNonce } from "@/lib/nonce";
 
 /**
@@ -35,12 +35,14 @@ export async function LocalBusinessJsonLd() {
       "@type": "Place",
       name,
     })),
-    // The licensed activities, so a local pack can match the business to a
-    // specific trade query rather than only to the company name.
+    // The four featured capabilities, so a local pack can match the business
+    // to a specific query rather than only to the company name. Not "Licensed
+    // ..." as a catalogue name — only the MEP entries are actually licensed,
+    // see content/site.ts.
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Licensed MEP & building services",
-      itemListElement: servicesToShow().map((s) => ({
+      name: "Fit-out, renovation & building services",
+      itemListElement: featuredServices().map((s) => ({
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
@@ -53,7 +55,6 @@ export async function LocalBusinessJsonLd() {
       { "@type": "PropertyValue", name: "Trade Licence", value: company.tradeLicence },
       { "@type": "PropertyValue", name: "Commercial Register", value: company.commercialRegister },
       { "@type": "PropertyValue", name: "Dubai Chamber Membership", value: company.chamberMembership },
-      { "@type": "PropertyValue", name: "Makani", value: address.makani },
     ],
   };
 

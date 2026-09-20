@@ -31,6 +31,12 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  images: {
+    // Stock photography placeholder host — see content/site.ts for the
+    // "these are stock, not the company's own work" note. Swap this out
+    // once real project photography replaces the Unsplash URLs.
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
+  },
 };
 
 export default nextConfig;

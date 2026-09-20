@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { company } from "@/content/site";
 
-export const alt = `${company.shortName} — MEP & building-services contracting in Dubai`;
+export const alt = `${company.shortName} — Interior fit-out & renovation in Dubai`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -38,7 +38,7 @@ export default function OpengraphImage() {
               letterSpacing: "-0.02em",
             }}
           >
-            MEP &amp; building-services contracting in Dubai
+            Interior fit-out &amp; renovation in Dubai
           </div>
         </div>
 

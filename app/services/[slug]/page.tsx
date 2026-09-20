@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   company,
   servicesToShow,
+  featuredServices,
+  mepTrades,
   getService,
   SITE_URL,
 } from "@/content/site";
 import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
 import { CtaBand } from "@/components/CtaBand";
-import { ServiceIcon } from "@/components/ServiceIcons";
 import { ArrowIcon } from "@/components/icons";
 import { getNonce } from "@/lib/nonce";
 
@@ -45,10 +47,32 @@ export default async function ServiceDetailPage({
   if (!service) notFound();
 
   const nonce = await getNonce();
-  const others = servicesToShow().filter((s) => s.slug !== service.slug);
+  const isMepHub = service.category === "mep" && service.featured;
+  const isGranularMepTrade = service.category === "mep" && !service.featured;
+
+  // Sidebar: sibling featured capabilities, always — this is the "what else
+  // do you do" list regardless of which kind of page you're on.
+  const otherCapabilities = featuredServices().filter(
+    (s) => s.slug !== service.slug,
+  );
+
+  const crumbs = isGranularMepTrade
+    ? [
+        { href: "/services", label: "Services" },
+        { href: "/services/mep-technical-services", label: "MEP & Technical Services" },
+        { href: `/services/${service.slug}`, label: service.name },
+      ]
+    : [
+        { href: "/services", label: "Services" },
+        { href: `/services/${service.slug}`, label: service.name },
+      ];
 
   // Service structured data — ties the page to the business and the area it
   // covers, which is what local packs read for "<trade> in Dubai" queries.
+  // Note: this associates the service with the company and describes its
+  // scope; it does not itself assert a licence. See content/site.ts for why
+  // `licensed: false` services use capability language rather than a
+  // licence-backed claim.
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -92,37 +116,68 @@ export default async function ServiceDetailPage({
       <PageHeader
         title={service.heading}
         intro={service.summary}
-        crumbs={[
-          { href: "/services", label: "Services" },
-          { href: `/services/${service.slug}`, label: service.name },
-        ]}
+        crumbs={crumbs}
       />
 
       <Container className="py-16 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
           <div>
-            <ServiceIcon
-              slug={service.slug}
-              className="h-10 w-10 text-blue"
-            />
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-steel">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
+              <Image
+                src={service.image}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-steel">
               {service.detail}
             </p>
 
-            <h2 className="mt-12 text-2xl font-semibold tracking-tight text-navy">
-              What this scope covers
-            </h2>
-            <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-              {service.scopeIncludes.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span
-                    className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-orange"
-                    aria-hidden="true"
-                  />
-                  <span className="leading-relaxed text-steel">{item}</span>
-                </li>
-              ))}
-            </ul>
+            {isMepHub ? (
+              <>
+                <h2 className="mt-12 text-2xl font-semibold tracking-tight text-navy">
+                  The six licensed activities
+                </h2>
+                <p className="mt-3 max-w-2xl leading-relaxed text-steel">
+                  Each of these is on trade licence {company.tradeLicence}.
+                </p>
+                <ul className="mt-6 grid gap-px overflow-hidden rounded-xl border border-line sm:grid-cols-2">
+                  {mepTrades().map((trade) => (
+                    <li key={trade.slug}>
+                      <Link
+                        href={`/services/${trade.slug}`}
+                        className="group flex h-full items-center gap-3 bg-paper px-5 py-4 transition-colors duration-200 hover:bg-surface"
+                      >
+                        <span className="flex-1 text-sm font-medium leading-snug text-navy">
+                          {trade.name}
+                        </span>
+                        <ArrowIcon className="nudge h-4 w-4 shrink-0 text-steel transition-colors duration-200 group-hover:text-cta" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <>
+                <h2 className="mt-12 text-2xl font-semibold tracking-tight text-navy">
+                  What this covers
+                </h2>
+                <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                  {service.scopeIncludes.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <span
+                        className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-orange"
+                        aria-hidden="true"
+                      />
+                      <span className="leading-relaxed text-steel">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
 
             <div className="mt-12 rounded-xl border border-line bg-surface p-6">
               <h2 className="text-lg font-semibold text-navy">
@@ -132,27 +187,23 @@ export default async function ServiceDetailPage({
                 We&apos;re based in {company.address.area},{" "}
                 {company.address.emirate}, and take this work on across the{" "}
                 {company.address.country} — for developers, main contractors,
-                consultants and facilities managers.
+                consultants, facilities managers and private clients.
               </p>
             </div>
           </div>
 
-          {/* Other services */}
+          {/* Other capabilities */}
           <aside className="lg:pt-2">
             <h2 className="font-mono text-[0.7rem] uppercase tracking-wider text-steel">
-              Other services
+              Other capabilities
             </h2>
             <ul className="mt-5 space-y-px overflow-hidden rounded-xl border border-line">
-              {others.map((other) => (
+              {otherCapabilities.map((other) => (
                 <li key={other.slug}>
                   <Link
                     href={`/services/${other.slug}`}
                     className="group flex items-center gap-3 bg-paper px-4 py-3.5 transition-colors duration-200 hover:bg-surface"
                   >
-                    <ServiceIcon
-                      slug={other.slug}
-                      className="h-5 w-5 shrink-0 text-blue transition-colors duration-200 group-hover:text-cta"
-                    />
                     <span className="flex-1 text-sm font-medium leading-snug text-navy">
                       {other.name}
                     </span>

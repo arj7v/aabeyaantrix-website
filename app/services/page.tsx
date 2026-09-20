@@ -1,59 +1,66 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { company, servicesToShow } from "@/content/site";
+import { featuredServices } from "@/content/site";
 import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
 import { CtaBand } from "@/components/CtaBand";
-import { ServiceIcon } from "@/components/ServiceIcons";
 import { ArrowIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "MEP Services in Dubai | HVAC, Plumbing, District Cooling",
+  title: "Interior Fit-Out, Renovation & MEP Services in Dubai",
   description:
-    "Licensed MEP and building-services activities in Dubai: air-conditioning and ventilation, electromechanical, plumbing and sanitary, pipe repair, district cooling and technical services across the UAE.",
+    "Interior fit-out, renovation, civil and structural works, and licensed MEP services in Dubai — one accountable team for turnkey projects across the UAE.",
   alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {
-  const services = servicesToShow();
+  const services = featuredServices();
 
   return (
     <>
       <PageHeader
-        title="MEP & building services in Dubai"
-        intro={`The six activities on trade licence ${company.tradeLicence}. Each is delivered by a licensed team for developers, main contractors, consultants and facilities managers across the UAE.`}
+        title="What we deliver"
+        intro="One accountable team, four capabilities — coordinated as a single turnkey programme or engaged on their own."
         crumbs={[{ href: "/services", label: "Services" }]}
       />
 
       <Container className="py-16 sm:py-20">
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-5 sm:grid-cols-2">
           {services.map((service) => (
             <Link
               key={service.slug}
               href={`/services/${service.slug}`}
-              className="lift group flex flex-col rounded-xl border border-line bg-paper p-7 hover:border-blue/30"
+              className="lift group flex flex-col overflow-hidden rounded-xl border border-line bg-paper hover:border-blue/30"
             >
-              <ServiceIcon
-                slug={service.slug}
-                className="h-9 w-9 text-blue transition-colors duration-200 group-hover:text-cta"
-              />
-              <h2 className="mt-5 text-xl font-semibold leading-snug text-navy">
-                {service.name}
-              </h2>
-              <p className="mt-3 flex-1 leading-relaxed text-steel">
-                {service.summary}
-              </p>
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue">
-                Read more
-                <ArrowIcon className="nudge h-4 w-4" />
-              </span>
+              <div className="relative aspect-[16/9] overflow-hidden">
+                <Image
+                  src={service.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-7">
+                <h2 className="text-xl font-semibold leading-snug text-navy">
+                  {service.name}
+                </h2>
+                <p className="mt-3 flex-1 leading-relaxed text-steel">
+                  {service.summary}
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue">
+                  Read more
+                  <ArrowIcon className="nudge h-4 w-4" />
+                </span>
+              </div>
             </Link>
           ))}
         </div>
 
         <p className="mt-14 max-w-2xl border-t border-line pt-6 text-sm leading-relaxed text-steel">
           Scope varies by project. If what you need sits alongside these
-          activities, call and we&apos;ll tell you plainly whether it&apos;s
+          capabilities, call and we&apos;ll tell you plainly whether it&apos;s
           something we can take on.
         </p>
       </Container>

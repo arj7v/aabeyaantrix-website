@@ -23,38 +23,38 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `MEP Contractor in Dubai | ${company.shortName} Building Contracting L.L.C`,
+    default: `Interior Fit-Out & Renovation in Dubai | ${company.shortName} Building Contracting L.L.C`,
     template: `%s | ${company.shortName}`,
   },
   description:
-    "Licensed MEP and building-services contractor in Dubai: HVAC, electromechanical, plumbing and sanitary, district cooling and technical services. Dubai Chamber member, based in Al Quoz Industrial First.",
+    "Interior fit-out, renovation and building contracting in Dubai — one accountable team for villas, offices, retail and hospitality spaces, backed by licensed MEP capability.",
   applicationName: company.legalName,
   authors: [{ name: company.legalName }],
   alternates: { canonical: "/" },
-  // Broad intent terms only — these mirror the licensed activities and the
-  // service pages, so nothing here claims work the licence doesn't cover.
+  // Interior/renovation terms lead now; MEP terms stay since that scope is
+  // still real and still licensed — see content/site.ts for the distinction.
   keywords: [
+    "interior fit-out Dubai",
+    "villa renovation Dubai",
+    "office fit-out Dubai",
+    "building contracting UAE",
     "MEP contractor Dubai",
-    "HVAC maintenance Dubai",
-    "electromechanical contractor UAE",
-    "plumbing and sanitary contractor Dubai",
-    "district cooling services Dubai",
-    "building services contractor Al Quoz",
+    "civil and structural works Dubai",
   ],
   openGraph: {
     type: "website",
     locale: "en_AE",
     url: SITE_URL,
     siteName: company.legalName,
-    title: `MEP Contractor in Dubai | ${company.legalName}`,
+    title: `Interior Fit-Out & Renovation in Dubai | ${company.legalName}`,
     description:
-      "HVAC, electromechanical, plumbing, district cooling and technical services in Dubai. Licensed and Dubai Chamber registered.",
+      "Complete interior fit-out, renovation and building contracting solutions in Dubai and across the UAE — one accountable team from concept to handover.",
   },
   twitter: {
     card: "summary_large_image",
-    title: `MEP Contractor in Dubai | ${company.shortName}`,
+    title: `Interior Fit-Out & Renovation in Dubai | ${company.shortName}`,
     description:
-      "Licensed MEP and building-services contracting in Dubai and across the UAE.",
+      "Interior fit-out, renovation and building contracting in Dubai and across the UAE.",
   },
   robots: {
     index: true,
