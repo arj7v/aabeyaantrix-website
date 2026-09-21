@@ -112,6 +112,10 @@ export const images = {
   projectVillaRenovation: unsplash("1600585154526-990dced4db0d"),
   projectOfficeFitOut: unsplash("1497366754035-f200968a6e72"),
   projectHospitality: unsplash("1564501049412-61c2a3083791"),
+  // Unsplash's own listed description is "A plumber repairs plumbing in a
+  // bathroom" (free licence, photographer bhagya laxmi) — confirmed via the
+  // photo's page metadata, not guessed from the ID like the images above.
+  projectPlumbing: unsplash("1749532125405-70950966b0e5"),
 } as const;
 
 export type ServiceCategory = "fit-out" | "renovation" | "civil" | "mep";
@@ -494,9 +498,8 @@ export const projects: Project[] = [
     // Picking by sector here (a generic retail-interior stock shot) read as
     // a straight-up mismatch next to "Plumbing, sanitary & technical
     // services" — the scope is the prominent text on the card, so the photo
-    // needs to match that, not the sector label. Reusing the MEP services'
-    // photo instead, since that's what this project's scope actually is.
-    image: images.mep,
+    // needs to match that, not the sector label.
+    image: images.projectPlumbing,
   },
 ];
 
