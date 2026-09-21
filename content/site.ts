@@ -108,7 +108,11 @@ export const images = {
   fitOut: unsplash("1600210492486-724fe5c67fb0"),
   renovation: unsplash("1600607687939-ce8a6c25118c"),
   civil: unsplash("1541888946425-d81bb19240f5"),
-  mep: unsplash("1621905252507-b35492cc74b4"),
+  // Unsplash's own listed description is "a room with a bunch of pipes and
+  // gauges" (free licence, photographer Immo Wegmann) -- a mechanical/plant
+  // room, closer to district-cooling/chiller-plant work than the previous
+  // pick, and confirmed via the photo's page metadata before use.
+  mep: unsplash("1650551182956-47efa0f90b64"),
   projectVillaRenovation: unsplash("1600585154526-990dced4db0d"),
   projectOfficeFitOut: unsplash("1497366754035-f200968a6e72"),
   projectHospitality: unsplash("1564501049412-61c2a3083791"),
