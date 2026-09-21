@@ -14,14 +14,17 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 const fieldBase =
   "mt-1.5 w-full rounded-md border border-line bg-paper px-3.5 py-2.5 text-ink placeholder:text-steel/60 focus:border-blue focus:outline-none focus-visible:outline-2 focus-visible:outline-blue";
+const fieldInvalid = "border-cta focus:border-cta";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string>("");
+  const [phoneError, setPhoneError] = useState<string>("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
+    setPhoneError("");
 
     const form = event.currentTarget;
     const data = new FormData(form);
@@ -35,7 +38,8 @@ export function ContactForm() {
 
     const phone = (data.get("phone") as string)?.trim();
     if (!phone) {
-      setError("Please add a phone number so we can call you back.");
+      setPhoneError("Add a phone number so we can call you back.");
+      (form.elements.namedItem("phone") as HTMLInputElement | null)?.focus();
       return;
     }
 
@@ -138,8 +142,16 @@ export function ContactForm() {
             required
             autoComplete="tel"
             maxLength={LIMITS.phone}
-            className={fieldBase}
+            aria-invalid={phoneError ? "true" : undefined}
+            aria-describedby={phoneError ? "phone-error" : undefined}
+            onChange={() => phoneError && setPhoneError("")}
+            className={`${fieldBase} ${phoneError ? fieldInvalid : ""}`}
           />
+          {phoneError && (
+            <p id="phone-error" role="alert" className="mt-1.5 text-sm font-medium text-cta">
+              {phoneError}
+            </p>
+          )}
         </div>
       </div>
 
